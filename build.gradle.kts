@@ -1,6 +1,8 @@
 val ktorVersion: String = "2.0.2"
 val kotlinVersion: String = "1.7.10"
 val logbackVersion: String = "1.2.11"
+val exposedVersion = "0.36.2"
+val h2Version: String = "1.4.200"
 
 plugins {
     application
@@ -23,6 +25,11 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("com.h2database:h2:$h2Version")
+
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
