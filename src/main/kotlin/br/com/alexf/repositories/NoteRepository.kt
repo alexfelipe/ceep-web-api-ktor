@@ -1,33 +1,25 @@
 package br.com.alexf.repositories
 
+import br.com.alexf.database.dao.NotesDao
+import br.com.alexf.database.dao.NotesDaoImpl
 import br.com.alexf.models.Note
 import java.util.*
 
-class NoteRepository {
-    companion object {
-        private val notes = mutableListOf<Note>(
-            Note(
-                UUID.randomUUID().toString(),
-                "test title",
-                "test message"
-            )
-        )
+class NoteRepository(
+    private val dao: NotesDao = NotesDaoImpl
+) {
+
+    suspend fun getAll(): List<Note> = dao.getAll()
+
+    suspend fun findById(id: UUID): Note? = dao.findById(id)
+
+
+    suspend fun save(note: Note) {
+        dao.save(note)
     }
 
-    val notes get() = Companion.notes.toList()
-
-    fun findById(id: String) =
-        notes.find {
-            it.id == id
-        }
-
-    fun save(note: Note) {
-        Companion.notes.add(note)
+    fun remove(id: String): Boolean {
+        TODO()
     }
-
-    fun remove(id: String) =
-        Companion.notes.removeIf {
-            id == it.id
-        }
 
 }
