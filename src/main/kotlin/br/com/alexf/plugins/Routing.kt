@@ -2,19 +2,22 @@ package br.com.alexf.plugins
 
 import br.com.alexf.models.Note
 import br.com.alexf.repositories.NoteRepository
-import io.ktor.server.routing.*
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.response.*
 import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import io.ktor.server.thymeleaf.*
 import java.util.*
 
 fun Application.configureRouting(
-    repository: NoteRepository
+    repository: NoteRepository = NoteRepository()
 ) {
     routing {
         get("/") {
-            call.respondText("Hello World!")
+            call.respond(
+                ThymeleafContent("index", emptyMap())
+            )
         }
         route("/notes") {
             get {
@@ -50,11 +53,11 @@ fun Application.configureRouting(
                 )
             }
             delete("{id?}") {
-                val id = call.parameters["id"]
+                val id = UUID.fromString(call.parameters["id"])
                     ?: return@delete call.respond(
                         HttpStatusCode.BadRequest
                     )
-                if(repository.remove(id)) {
+                if (repository.delete(id)) {
                     call.respondText(
                         "Note removed correctly",
                         status = HttpStatusCode.Accepted
