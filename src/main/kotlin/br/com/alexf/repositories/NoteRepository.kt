@@ -13,13 +13,8 @@ class NoteRepository(
 
     suspend fun findById(id: UUID): Note? = dao.findById(id)
 
+    suspend fun save(note: Note) = dao.save(note)
 
-    suspend fun save(note: Note) {
-        dao.save(note)
-    }
-
-    fun remove(id: String): Boolean {
-        TODO()
-    }
+    suspend fun delete(id: UUID): Boolean = dao.delete(id)
 
 }

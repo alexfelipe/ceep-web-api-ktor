@@ -1,6 +1,6 @@
 package br.com.alexf.database
 
-import br.com.alexf.models.NoteEntity
+import br.com.alexf.database.entities.NoteEntity
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
