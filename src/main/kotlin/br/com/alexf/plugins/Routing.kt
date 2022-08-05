@@ -42,10 +42,13 @@ fun Application.configureRouting(
                         "No note with id: $id found",
                         status = HttpStatusCode.NotFound
                     )
+                call.respond(
+                    status = HttpStatusCode.OK,
+                    message = foundNote
+                )
             }
             post {
                 val note = call.receive<Note>()
-                call.application.log.debug(note.toString())
                 repository.save(note)
                 call.respondText(
                     "Note stored correctly",

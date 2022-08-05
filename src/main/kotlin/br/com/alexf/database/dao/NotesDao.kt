@@ -13,7 +13,6 @@ interface NotesDao {
     suspend fun getAll(): List<Note>
     suspend fun save(note: Note)
     suspend fun findById(id: UUID): Note?
-
     suspend fun delete(id: UUID): Boolean
 }
 
